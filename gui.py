@@ -6,7 +6,8 @@ import os
 
 # create the MAIN and ONLY window
 window = Tk()
-window.title("tester")
+window.title("Simple Digital Life Instance")
+window.geometry('1500x750')
 
 # Run forever!
 window.mainloop()
