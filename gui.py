@@ -12,7 +12,7 @@ windowSize = 100
 window = Tk()
 window.title("Simple Digital Life Instance")
 window.geometry('1350x675')
-environment = Environment(windowSize)
+environment = Environment(windowSize, 100, 100)
 
 
 def displayEnvironment(environment):
@@ -34,6 +34,21 @@ class Table:
         grass.img = Image.new(mode='RGBA', size=(10, 20), color='green')
         grass.img = ImageTk.PhotoImage(grass.img)
 
+        individual = ttk.Treeview(root,
+                                  columns=('one'))
+        individual.heading('one', text='one')
+        individual.pack()
+
+        individual.img = Image.new(mode='RGBA', size=(10, 20), color='red')
+        individual.img = ImageTk.PhotoImage(individual.img)
+
+        food = ttk.Treeview(root,
+                            columns=('one'))
+        food.heading('one', text='one')
+        food.pack()
+
+        food.img = Image.new(mode='RGBA', size=(10, 20), color='blue')
+        food.img = ImageTk.PhotoImage(food.img)
         # code for creating table
         for i in range(windowSize):
             for j in range(windowSize):
@@ -46,7 +61,7 @@ class Table:
                 if len(locationList) == 0:
                     self.e.insert(END, grass.img)
                 elif type(locationList[0]) == Individual:
-                    self.e.insert(END, cell.jpg)
+                    self.e.insert(END, individual.jpg)
                 else:
                     self.e.insert(END, food.jpg)
 
