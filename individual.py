@@ -3,7 +3,7 @@ import random
 
 class Individual:
 
-    def __init__(self, size, baseStomach, costToMove, probToGrow=random.randint(1, 10)/10, probToLove=random.randint(1, 10)/10, strength=random.randint(1, 10)):
+    def __init__(self, size=random.randint(1, 10), baseStomach=random.randint(1, 10), costToMove=random.randint(1, 5), probToGrow=random.randint(1, 10)/10, probToLove=random.randint(1, 10)/10, strength=random.randint(1, 10)):
         self.individual = size
         self.stomachContents = baseStomach
         self.costToMove = costToMove
