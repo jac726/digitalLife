@@ -6,13 +6,11 @@ from tkinter.constants import W
 class Environment:
 
     def __init__(self, squareSize, foodOccurence, numIndividuals):
-        self.environment = [
-            [[] for x in range(squareSize)] for x in range(squareSize)]
-        self.populateFood(squareSize, foodOccurence)
-        self.generateIndividuals(numIndividuals, squareSize)
+        self.environment = [[[] for x in range(squareSize)] for y in range(squareSize)]
         self.foodCoordinates = []
         self.individualCoordinates = []
-        return self
+        self.populateFood(squareSize, foodOccurence)
+        self.generateIndividuals(numIndividuals, squareSize)
 
     def getPos(self, x, y):
         return self.environment[x][y]
@@ -26,8 +24,8 @@ class Environment:
 
     def populateFood(self, squareSize, foodOccurence):
         for foodOccurence in range(foodOccurence):
-            x_coord = random.randint(0, squareSize)
-            y_coord = random.randint(0, squareSize)
+            x_coord = random.randint(0, squareSize-1)
+            y_coord = random.randint(0, squareSize-1)
             self.environment[x_coord][y_coord].append(Food(squareSize/10))
             self.foodCoordinates.append((x_coord, y_coord))
 
@@ -35,7 +33,7 @@ class Environment:
         def individualRowHelper(row, targetNum, squareSize):
             successful = 0
             while successful != targetNum:
-                place = random.randint(0, squareSize)
+                place = random.randint(0, squareSize-1)
                 if not self.hasIndividual(row, place):
                     self.environment[row][place].append(Individual())
                     self.individualCoordinates.append((row, place))
@@ -44,7 +42,7 @@ class Environment:
         def individualColHelper(col, targetNum, squareSize):
             successful = 0
             while successful != targetNum:
-                place = random.randint(0, squareSize)
+                place = random.randint(0, squareSize-1)
                 if not self.hasIndividual(place, col):
                     self.environment[place][col].append(Individual())
                     self.individualCoordinates.append((place, col))
