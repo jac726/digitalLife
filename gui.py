@@ -16,10 +16,7 @@ environment = Environment(windowSize, 100, 100)
 
 
 def displayEnvironment(environment):
-    # squares with nothing are shown as grass.jpg
-    # squares with food are shown as food.jpg
-    # squares with individuals are shown as cell.jpg
-    window.destroy()
+    # will want to add some type of next button for steps.
     t = Table(window)
 
 
@@ -71,6 +68,4 @@ displayEnvironment(environment)
 for x in range(100):
     environment.step()
     displayEnvironment(environment)
-
-# Run forever!
-window.mainloop()
+    window.mainloop()
