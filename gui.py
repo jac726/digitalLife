@@ -12,6 +12,7 @@ windowSize = 100
 window = Tk()
 window.title("Simple Digital Life Instance")
 window.geometry('1350x675')
+environment = Environment(windowSize)
 
 
 def displayEnvironment(environment):
@@ -50,8 +51,11 @@ class Table:
                     self.e.insert(END, food.jpg)
 
 
-environment = Environment(windowSize)
 displayEnvironment(environment)
+
+for x in range(100):
+    environment.step()
+    displayEnvironment(environment)
 
 # Run forever!
 window.mainloop()
