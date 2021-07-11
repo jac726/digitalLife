@@ -3,20 +3,31 @@ import random
 
 class Individual:
 
-    def __init__(self, size=random.randint(1, 10), baseStomach=random.randint(1, 10), costToMove=random.randint(1, 5), probToGrow=random.randint(1, 10)/10, probToLove=random.randint(1, 10)/10, strength=random.randint(1, 10)):
+    def __init__(self, size=random.randint(1, 10), 
+                baseStomach=random.randint(1, 10), 
+                costToMove=random.randint(1, 5), 
+                probToGrow=random.randint(1, 10)/10, 
+                probToLove=random.randint(1, 10)/10, 
+                probToFight=random.randint(1,10)/10,
+                strength=random.randint(1, 10)):
         self.individual = size
         self.stomachContents = baseStomach
         self.costToMove = costToMove
         self.probToGrow = probToGrow
         self.probToMove = 1 - probToGrow
         self.probToLove = probToLove
+        self.probToFight = probToFight
         self.strength = strength
+        self.hasMoved = False
 
     def getCostToMove(self):
         return self.costToMove
 
     def getStomachContents(self):
         return self.stomachContents
+    
+    def increaseStomachContents(self,amount):
+        self.stomachContents += amount
 
     def getSize(self):
         return self.size
@@ -27,8 +38,27 @@ class Individual:
     def getProbToLove(self):
         return self.probToLove
 
+    def getProbToFight(self):
+        return self.probToFight
+
     def getStrength(self):
         return self.strength
+    
+    def getHasMoved(self):
+        return self.hasMoved
+
+    def resetMove(self):
+        self.hasMoved = False
+    
+    def setMove(self):
+        self.hasMoved = True
+
+    def willMate(self,secondIndividual):
+        totalProb = self.getProbToLove() * secondIndividual.getProbToLove()
+        if random.random() < totalProb:
+            return True
+        else:
+            return False
 
     def mate(self, secondIndividual):
         parent1stomach = self.getStomachContents()
@@ -52,8 +82,14 @@ class Individual:
         childStrength = parent1strength + parent2strength / 2
         return Individual(childStomach, childMove, childProbToGrow, childProbToLove, childStrength)
 
-    def fight(self, secondIndividual):
+    def willFight(self,secondIndividual):
+        totalProb = self.getProbToFight() * secondIndividual.getProbToFight()
+        if random.random() < totalProb:
+            return True
+        else:
+            return False
 
+    def fight(self, secondIndividual):
         if self.strength > secondIndividual.strength:
             return self
         elif self.strength == secondIndividual.strength:
